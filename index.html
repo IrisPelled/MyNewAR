@@ -68,33 +68,5 @@
         </button>
     </div>
 
-    <!-- Avaturn SDK container -->
-    <div id="avaturn-sdk-container"></div>
-
-    <!-- Avaturn SDK Integration -->
-    <script type="module">
-        import { AvaturnSDK } from "https://cdn.jsdelivr.net/npm/@avaturn/sdk/dist/index.js";
-
-        function loadAvaturn() {
-            const container = document.getElementById("avaturn-sdk-container");
-            const subdomain = "iris";
-            const url = `https://${subdomain}.avaturn.dev`;
-            const sdk = new AvaturnSDK();
-            sdk.init(container, { url }).then(() => {
-                sdk.on("export", (data) => {
-                    alert("[callback] Avatar exported. See logs to explore the returned data.");
-                    console.log(data);
-                });
-            });
-        }
-
-        if (document.readyState === "loading") {
-            document.addEventListener("DOMContentLoaded", loadAvaturn);
-        } else {
-            loadAvaturn();
-        }
-
-        window.loadAvaturn = loadAvaturn;
-    </script>
-</body>
+    </body>
 </html>
