@@ -123,5 +123,34 @@
         </button>
     </div>
 
+    <script>
+        // Initialize Three.js components
+        var scene = document.querySelector('a-scene').object3D;
+        var modelEntity = document.querySelector('#animated-entity').object3D;
+
+        // Initialize GLTFLoader to load the GLB model
+        var loader = new THREE.GLTFLoader();
+        loader.load('dancing-character.glb', function(gltf) {
+            var model = gltf.scene;
+            var mixer = new THREE.AnimationMixer(model); // Create the animation mixer
+
+            // Load the animation clips from the GLB
+            var action = mixer.clipAction(gltf.animations[0]); // Assuming the first animation, you can change this to match the name
+
+            action.play(); // Play the animation
+            modelEntity.add(model); // Add the model to the scene
+
+            // Set up an animation loop to update the mixer
+            var clock = new THREE.Clock();
+            function animate() {
+                var delta = clock.getDelta();
+                mixer.update(delta);
+                requestAnimationFrame(animate);
+            }
+            animate(); // Start the animation loop
+        }, undefined, function(error) {
+            console.error('An error occurred while loading the model:', error);
+        });
+    </script>
 </body>
 </html>
