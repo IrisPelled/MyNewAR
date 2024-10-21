@@ -41,9 +41,17 @@
 
                 // הפעלת האנימציה
                 if (gltf.animations && gltf.animations.length > 0) {
+                    console.log("Animations found:", gltf.animations);
                     mixer = new THREE.AnimationMixer(model);
-                    const action = mixer.clipAction(gltf.animations[0]); // הפעלת האנימציה הראשונה בקובץ
-                    action.play();
+
+                    // מעבר על כל האנימציות בקובץ
+                    gltf.animations.forEach((clip, index) => {
+                        console.log(`Playing animation ${index}:`, clip.name);
+                        const action = mixer.clipAction(clip);
+                        action.play();
+                    });
+                } else {
+                    console.log("No animations found in the GLB file.");
                 }
 
                 animate(); // הפעלת הלולאה הגרפית
@@ -69,5 +77,3 @@
     </script>
 </body>
 </html>
-
-
